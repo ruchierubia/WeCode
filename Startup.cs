@@ -26,30 +26,28 @@ namespace WeCode
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW1: Incoming");
-                await next();
-                logger.LogInformation("MW1: OutGoing");
-            });
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW2: Incoming");
-                await next();
-                logger.LogInformation("MW2: OutGoing");
-            });
+            //DefaultFilesOptions _defaultFilesOptions = new DefaultFilesOptions();
+            //_defaultFilesOptions.DefaultFileNames.Clear();
+            //_defaultFilesOptions.DefaultFileNames.Add("foo.html");
+            //app.UseDefaultFiles(_defaultFilesOptions);
+
+            //app.UseStaticFiles();
+
+            FileServerOptions _fileServerOptions = new FileServerOptions();
+            _fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            _fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer(_fileServerOptions);
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Terminal middleware. request/response");
-                logger.LogInformation("Terminal middleware.request/response");
+                await context.Response.WriteAsync("Hello world!");
             });
         }
     }
