@@ -9,7 +9,7 @@ namespace WeCode.Controllers
 {
     public class HomeController : Controller
     {
-        private ITalentRepository _talentRepository;
+        private readonly ITalentRepository _talentRepository;
 
         public HomeController(ITalentRepository talentRepository)
         {
@@ -19,6 +19,12 @@ namespace WeCode.Controllers
         public string Index()
         {
             return _talentRepository.GetTalent(1).Name;
+        }
+
+        public ObjectResult Details()
+        {
+            Talent model = _talentRepository.GetTalent(1);
+            return new ObjectResult(model);// can also return jsonresult
         }
     }
 }

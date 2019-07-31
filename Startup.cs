@@ -25,7 +25,7 @@ namespace WeCode
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvcCore(); not complete, only core services
-            services.AddMvc();
+            services.AddMvc().AddXmlSerializerFormatters();// to return xml
             services.AddSingleton<ITalentRepository, MockTalentRepository>();
         }
 
