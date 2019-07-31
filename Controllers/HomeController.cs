@@ -21,10 +21,10 @@ namespace WeCode.Controllers
             return _talentRepository.GetTalent(1).Name;
         }
 
-        public ObjectResult Details()
+        public ViewResult Details()
         {
             Talent model = _talentRepository.GetTalent(1);
-            return new ObjectResult(model);// can also return jsonresult
+            return View(model);// can also return jsonresult
         }
     }
 }
