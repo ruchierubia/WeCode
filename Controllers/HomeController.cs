@@ -3,14 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WeCode.Models;
 
 namespace WeCode.Controllers
 {
     public class HomeController : Controller
     {
-        public JsonResult Index()
+        private ITalentRepository _talentRepository;
+
+        public HomeController(ITalentRepository talentRepository)
         {
-            return Json(new { id = 1 , name = "Test Name"});
+            _talentRepository = talentRepository;
+
+        }
+        public string Index()
+        {
+            return _talentRepository.GetTalent(1).Name;
         }
     }
 }
