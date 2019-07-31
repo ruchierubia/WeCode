@@ -30,23 +30,19 @@ namespace WeCode
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+                {
+                    SourceCodeLineCount = 5
+                };
+
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
 
-            //DefaultFilesOptions _defaultFilesOptions = new DefaultFilesOptions();
-            //_defaultFilesOptions.DefaultFileNames.Clear();
-            //_defaultFilesOptions.DefaultFileNames.Add("foo.html");
-            //app.UseDefaultFiles(_defaultFilesOptions);
-
-            //app.UseStaticFiles();
-
-            FileServerOptions _fileServerOptions = new FileServerOptions();
-            _fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            _fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(_fileServerOptions);
+            app.UseFileServer();
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error occur while processing the request!");
                 await context.Response.WriteAsync("Hello world!");
             });
         }
