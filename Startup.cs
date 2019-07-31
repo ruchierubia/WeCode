@@ -30,20 +30,15 @@ namespace WeCode
         {
             if (env.IsDevelopment())
             {
-                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
-                {
-                    SourceCodeLineCount = 5
-                };
 
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+                app.UseDeveloperExceptionPage();
             }
 
-            app.UseFileServer();
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                throw new Exception("Some error occur while processing the request!");
-                await context.Response.WriteAsync("Hello world!");
+                await context.Response.WriteAsync("Hosting environment:" + env.EnvironmentName);
             });
         }
     }
