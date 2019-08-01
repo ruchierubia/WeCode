@@ -23,7 +23,7 @@ namespace WeCode.Controllers
             return View(model);
         }
 
-        public ViewResult Details()
+        public ViewResult Details(int id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
