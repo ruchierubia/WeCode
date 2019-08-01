@@ -24,9 +24,6 @@ namespace WeCode.Controllers
         public ViewResult Details()
         {
             Talent model = _talentRepository.GetTalent(1);
-            //return View("MyViews/Test.cshtml");// using absolute path / or ~/myviews
-            //return View("../Test/Update");// return from relative path sigle hierarhy
-            //return View("../../MyViews/Test");// return from relative path double hierarhy(root)
             return View();
         }
     }
