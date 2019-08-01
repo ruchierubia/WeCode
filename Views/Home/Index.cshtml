@@ -1,25 +1,23 @@
 ﻿@model IEnumerable<Talent>
+
 @{ 
     ViewBag.Title = "Talent List";
 }
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Skills</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var talent in @Model)
-        { 
-            <tr>
-                <td>@talent.Id</td>
-                <td>@talent.Name</td>
-                <td>@talent.Email</td>
-                <td>@talent.Skills</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+
+<div class="card-deck">
+    @foreach (var talent in @Model)
+    {
+        <div class="card m-3">
+            <div class="card-header">
+                <h3>@talent.Name</h3>
+            </div>
+            <img class="card-img-top" src="~/images/download.jpg"/>
+            <div class="card-footer text-center">
+                <a href="#" class="btn btn-primary">View</a>
+                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+</div>

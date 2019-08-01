@@ -12,10 +12,9 @@ namespace WeCode.Models
         {
             _talentList = new List<Talent>()
             {
-                new Talent(){Id=1,Name="Test Name 1", Email="Test Email 1", Skills ="Test Skills 1"},
-                new Talent(){Id=2,Name="Test Name 2", Email="Test Email 2", Skills ="Test Skills 2"},
-                new Talent(){Id=3,Name="Test Name 3", Email="Test Email 3", Skills ="Test Skills 3"},
-                new Talent(){Id=4,Name="Test Name 4", Email="Test Email 4", Skills ="Test Skills 4"},
+                new Talent(){Id=1,Name="James Rivers", Email="James_Rivers@gmail.com", Skills =".Net, javascript"},
+                new Talent(){Id=2,Name="Tommy Hood", Email="Tommy_Hood@gmail.com", Skills ="php"},
+                new Talent(){Id=3,Name="Kyle Norris", Email="Kyle_Norris@gmail.com", Skills ="Java, phyton"},
             };// Mock List of object
         }
         public Talent GetTalent(int id)
