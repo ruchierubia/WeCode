@@ -24,9 +24,8 @@ namespace WeCode.Controllers
         public ViewResult Details()
         {
             Talent model = _talentRepository.GetTalent(1);
-            ViewBag.Talent = model;
             ViewBag.PageTitle = "Talent Details";
-            return View();
+            return View(model);
         }
     }
 }

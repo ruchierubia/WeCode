@@ -1,17 +1,18 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@model WeCode.Models.Talent
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
 </head>
 <body>
     <h3>@ViewBag.PageTitle</h3>
     <div>
-        Name: @ViewBag.Talent.Name
+        Name: @Model.Name
     </div>
     <div>
-        Email: @ViewBag.Talent.Email
+        Email: @Model.Email
     </div>
     <div>
-        Skills: @ViewBag.Talent.Skills
+        Skills: @Model.Skills
     </div>
 </body>
 </html>
