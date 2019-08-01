@@ -8,6 +8,7 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
+    [Route("[controller]/[action]")]// token replacement
     public class HomeController : Controller
     {
         private readonly ITalentRepository _talentRepository;
@@ -17,17 +18,20 @@ namespace WeCode.Controllers
             _talentRepository = talentRepository;
 
         }
+        [Route("~/Home")]
+        [Route("~/")]
+        [Route("")]
         public ViewResult Index()
         {
             var model = _talentRepository.GetTalentList();
             return View(model);
         }
-
-        public ViewResult Details(int id)
+        [Route("{id?}")]
+        public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Talent = _talentRepository.GetTalent(1),
+                Talent = _talentRepository.GetTalent(id??1),
                 PageTitle = "Talent Details"
             };
 
