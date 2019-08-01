@@ -8,5 +8,6 @@ namespace WeCode.Models
     public interface ITalentRepository
     {
         Talent GetTalent(int id);
+        IEnumerable<Talent> GetTalentList();
     }
 }

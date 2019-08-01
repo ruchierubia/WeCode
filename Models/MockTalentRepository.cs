@@ -22,5 +22,10 @@ namespace WeCode.Models
         {
             return _talentList.FirstOrDefault(x => x.Id == id);
         }
+
+        public IEnumerable<Talent> GetTalentList()
+        {
+            return _talentList;
+        }
     }
 }

@@ -17,9 +17,10 @@ namespace WeCode.Controllers
             _talentRepository = talentRepository;
 
         }
-        public string Index()
+        public ViewResult Index()
         {
-            return _talentRepository.GetTalent(1).Name;
+            var model = _talentRepository.GetTalentList();
+            return View(model);
         }
 
         public ViewResult Details()
