@@ -1,29 +1,26 @@
 ﻿@model IEnumerable<WeCode.Models.Talent>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <table>
-        <thead>
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Talent List";
+}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Skills</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var talent in @Model)
+        { 
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Skills</th>
+                <td>@talent.Id</td>
+                <td>@talent.Name</td>
+                <td>@talent.Email</td>
+                <td>@talent.Skills</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var talent in @Model)
-            { 
-                <tr>
-                    <td>@talent.Id</td>
-                    <td>@talent.Name</td>
-                    <td>@talent.Email</td>
-                    <td>@talent.Skills</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+        }
+    </tbody>
+</table>

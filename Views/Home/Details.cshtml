@@ -1,18 +1,15 @@
 ﻿@model WeCode.ViewModels.HomeDetailsViewModel
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h3>@Model.PageTitle</h3>
-    <div>
-        Name: @Model.Talent.Name
-    </div>
-    <div>
-        Email: @Model.Talent.Email
-    </div>
-    <div>
-        Skills: @Model.Talent.Skills
-    </div>
-</body>
-</html>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Talent Details";
+}
+<h3>@Model.PageTitle</h3>
+<div>
+    Name: @Model.Talent.Name
+</div>
+<div>
+    Email: @Model.Talent.Email
+</div>
+<div>
+    Skills: @Model.Talent.Skills
+</div>
