@@ -3,18 +3,15 @@
     <title></title>
 </head>
 <body>
-    <h3>@ViewData["PageTitle"]</h3>
-    @{
-        var talent = ViewData["Talent"] as WeCode.Models.Talent;
-    }
+    <h3>@ViewBag.PageTitle</h3>
     <div>
-        Name: @talent.Name
+        Name: @ViewBag.Talent.Name
     </div>
     <div>
-        Email: @talent.Email
+        Email: @ViewBag.Talent.Email
     </div>
     <div>
-        Skills: @talent.Skills
+        Skills: @ViewBag.Talent.Skills
     </div>
 </body>
 </html>
