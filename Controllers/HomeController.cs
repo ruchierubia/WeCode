@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeCode.Models;
+using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
@@ -23,9 +24,13 @@ namespace WeCode.Controllers
 
         public ViewResult Details()
         {
-            Talent model = _talentRepository.GetTalent(1);
-            ViewBag.PageTitle = "Talent Details";
-            return View(model);
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                Talent = _talentRepository.GetTalent(1),
+                PageTitle = "Talent Details"
+            };
+
+            return View(homeDetailsViewModel);
         }
     }
 }
