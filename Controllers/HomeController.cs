@@ -40,10 +40,14 @@ namespace WeCode.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Create(Talent talent)
+        public IActionResult Create(Talent talent)
         {
-            Talent newTalent =  _talentRepository.Add(talent);
-            return RedirectToAction("Details", new {id = newTalent.Id });
+            if (ModelState.IsValid)
+            {
+                Talent newTalent = _talentRepository.Add(talent);
+                return RedirectToAction("Details", new { id = newTalent.Id });
+            }
+            return View();
         }
     }
 }
