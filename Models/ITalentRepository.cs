@@ -9,5 +9,7 @@ namespace WeCode.Models
     {
         Talent GetTalent(int id);
         IEnumerable<Talent> GetTalentList();
+
+        Talent Add(Talent talent);
     }
 }

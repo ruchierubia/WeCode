@@ -33,9 +33,17 @@ namespace WeCode.Controllers
             return View(homeDetailsViewModel);
         }
 
+        [HttpGet]
         public ViewResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Talent talent)
+        {
+            Talent newTalent =  _talentRepository.Add(talent);
+            return RedirectToAction("Details", new {id = newTalent.Id });
         }
     }
 }

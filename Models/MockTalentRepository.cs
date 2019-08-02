@@ -26,5 +26,12 @@ namespace WeCode.Models
         {
             return _talentList;
         }
+
+        public Talent Add(Talent talent)
+        {
+            talent.Id = _talentList.Max(e => e.Id) + 1;
+            _talentList.Add(talent);
+            return talent;
+        }
     }
 }
