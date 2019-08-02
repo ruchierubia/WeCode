@@ -18,6 +18,8 @@ namespace WeCode.Models
         public string Email { get; set; }
         [Required]
         public Skills? Skills { get; set; }
+        public string  PhotoPat { get; set; }
+        public int SomeProperty { get; set; }
 
     }
 }
