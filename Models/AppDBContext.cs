@@ -15,5 +15,24 @@ namespace WeCode.Models
         }
 
         public DbSet<Talent> Talents { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Talent>().HasData(
+                new Talent
+                {
+                    Id = 1,
+                    Name = "Lebron James",
+                    Email = "KingJames@gmail.com",
+                    Skills = Skills.AngularJS
+                },
+                new Talent
+                {
+                    Id = 2,
+                    Name = "Anthony Davis",
+                    Email = "theBrow@gmail.com",
+                    Skills = Skills.C
+                });
+        }
     }
 }

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeCode.Models;
 
 namespace WeCode.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190802221121_SeedTalentsTable")]
+    partial class SeedTalentsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,8 +40,7 @@ namespace WeCode.Migrations
                     b.ToTable("Talents");
 
                     b.HasData(
-                        new { Id = 1, Email = "KingJames@gmail.com", Name = "Lebron James", Skills = 4 },
-                        new { Id = 2, Email = "theBrow@gmail.com", Name = "Anthony Davis", Skills = 1 }
+                        new { Id = 1, Email = "KingJames@gmail.com", Name = "Lebron James", Skills = 1 }
                     );
                 });
 #pragma warning restore 612, 618
