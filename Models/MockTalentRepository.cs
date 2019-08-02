@@ -8,7 +8,7 @@ namespace WeCode.Models
     public class MockTalentRepository : ITalentRepository
     {
         private List<Talent> _talentList;
-        public MockTalentRepository()
+        public MockTalentRepository() // In memory
         {
             _talentList = new List<Talent>()
             {
@@ -31,6 +31,26 @@ namespace WeCode.Models
         {
             talent.Id = _talentList.Max(e => e.Id) + 1;
             _talentList.Add(talent);
+            return talent;
+        }
+
+        public Talent Update(Talent talentChanges)
+        {
+            Talent talent = _talentList.FirstOrDefault(t => t.Id == talentChanges.Id);
+            if (talent != null)
+            {
+                talent.Name = talentChanges.Name;
+                talent.Email = talentChanges.Email;
+                talent.Skills = talentChanges.Skills;
+            }
+            return talent;
+        }
+
+        public Talent Delete(int id)
+        {
+            Talent talent = _talentList.FirstOrDefault(t => t.Id == id);
+            if (talent != null)
+                _talentList.Remove(talent);
             return talent;
         }
     }

@@ -29,7 +29,7 @@ namespace WeCode
                 options => options.UseSqlServer(_config.GetConnectionString("WeCodeDBConnection")));
             //services.AddMvcCore(); not complete, only core services
             services.AddMvc().AddXmlSerializerFormatters();// to return xml
-            services.AddTransient<ITalentRepository, MockTalentRepository>();
+            services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
