@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,9 +25,11 @@ namespace WeCode
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<AppDBContext>(
+                options => options.UseSqlServer(_config.GetConnectionString("WeCodeDBConnection")));
             //services.AddMvcCore(); not complete, only core services
             services.AddMvc().AddXmlSerializerFormatters();// to return xml
-            services.AddSingleton<ITalentRepository, MockTalentRepository>();
+            services.AddTransient<ITalentRepository, MockTalentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
