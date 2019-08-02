@@ -42,7 +42,7 @@ namespace WeCode
             //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "wecoders/{controller=Home}/{action=Index}/{id?}");
             }); //conventional routing
         }
     }
