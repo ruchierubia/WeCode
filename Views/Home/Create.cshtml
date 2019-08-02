@@ -21,7 +21,9 @@
         <div class="form-group row">
             <label asp-for="Skills" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <select asp-for="Skills" asp-items="Html.GetEnumSelectList<Skills>()" class="custom-select mr-sm-2"></select>
+                <select asp-for="Skills" asp-items="Html.GetEnumSelectList<Skills>()" class="custom-select mr-sm-2">
+                    <option value="">Please Select</option>
+                </select>
             </div>
         </div>
         <div asp-validation-summary="All" class="text-danger"></div>

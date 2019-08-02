@@ -16,7 +16,8 @@ namespace WeCode.Models
             ErrorMessage = "Invalid email format")]
         [Required]
         public string Email { get; set; }
-        public Skills Skills { get; set; }
+        [Required]
+        public Skills? Skills { get; set; }
 
     }
 }
