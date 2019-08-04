@@ -30,6 +30,7 @@ namespace WeCode.Controllers
         }
         public ViewResult Details(int? id)
         {
+            throw new Exception("Error in Details View");
             Talent talent = _talentRepository.GetTalent(id.Value);
             if(talent == null)
             {
