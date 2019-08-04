@@ -18,6 +18,6 @@ namespace WeCode.ViewModels
         public string Email { get; set; }
         [Required]
         public Skills? Skills { get; set; }
-        public IFormFile Photo { get; set; }
+        public List<IFormFile> Photos { get; set; }
     }
 }
