@@ -30,9 +30,16 @@ namespace WeCode.Controllers
         }
         public ViewResult Details(int? id)
         {
+            Talent talent = _talentRepository.GetTalent(id.Value);
+            if(talent == null)
+            {
+                Response.StatusCode = 404;
+                return View("TalentNotFound", id.Value);
+            }
+
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Talent = _talentRepository.GetTalent(id??1),
+                Talent = talent,
                 PageTitle = "Talent Details"
             };
 
