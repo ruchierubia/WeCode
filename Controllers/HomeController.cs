@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WeCode.Models;
@@ -11,10 +13,13 @@ namespace WeCode.Controllers
     public class HomeController : Controller
     {
         private readonly ITalentRepository _talentRepository;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public HomeController(ITalentRepository talentRepository)
+        public HomeController(ITalentRepository talentRepository, 
+                              IHostingEnvironment hostingEnvironment)
         {
             _talentRepository = talentRepository;
+            _hostingEnvironment = hostingEnvironment;
 
         }
         public ViewResult Index()
@@ -40,11 +45,27 @@ namespace WeCode.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Talent talent)
+        public IActionResult Create(TalentCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Talent newTalent = _talentRepository.Add(talent);
+                string uniqueFileName = null;
+                if(model.Photo!= null)
+                {
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                Talent newTalent = new Talent()
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Skills = model.Skills,
+                    PhotoPath = uniqueFileName
+
+                };
+                _talentRepository.Add(newTalent);
                 return RedirectToAction("Details", new { id = newTalent.Id });
             }
             return View();
