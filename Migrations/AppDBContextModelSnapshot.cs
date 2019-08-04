@@ -31,19 +31,17 @@ namespace WeCode.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("PhotoPat");
+                    b.Property<string>("PhotoPath");
 
                     b.Property<int>("Skills");
-
-                    b.Property<int>("SomeProperty");
 
                     b.HasKey("Id");
 
                     b.ToTable("Talents");
 
                     b.HasData(
-                        new { Id = 1, Email = "KingJames@gmail.com", Name = "Lebron James", Skills = 4, SomeProperty = 0 },
-                        new { Id = 2, Email = "theBrow@gmail.com", Name = "Anthony Davis", Skills = 1, SomeProperty = 0 }
+                        new { Id = 1, Email = "KingJames@gmail.com", Name = "Lebron James", Skills = 4 },
+                        new { Id = 2, Email = "theBrow@gmail.com", Name = "Anthony Davis", Skills = 1 }
                     );
                 });
 #pragma warning restore 612, 618

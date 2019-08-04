@@ -2,12 +2,12 @@
 
 namespace WeCode.Migrations
 {
-    public partial class AddPhotoPathColumn : Migration
+    public partial class AddPhotopathColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "PhotoPat",
+                name: "PhotoPath",
                 table: "Talents",
                 nullable: true);
         }
@@ -15,7 +15,7 @@ namespace WeCode.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PhotoPat",
+                name: "PhotoPath",
                 table: "Talents");
         }
     }

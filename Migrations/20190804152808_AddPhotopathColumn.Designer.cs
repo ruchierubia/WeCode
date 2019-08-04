@@ -9,8 +9,8 @@ using WeCode.Models;
 namespace WeCode.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20190802224633_AddPhotoPathColumn")]
-    partial class AddPhotoPathColumn
+    [Migration("20190804152808_AddPhotopathColumn")]
+    partial class AddPhotopathColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace WeCode.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("PhotoPat");
+                    b.Property<string>("PhotoPath");
 
                     b.Property<int>("Skills");
 
