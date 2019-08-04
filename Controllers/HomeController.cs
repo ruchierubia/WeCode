@@ -51,16 +51,12 @@ namespace WeCode.Controllers
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
-                if(model.Photos!= null && model.Photos.Count > 0)
+                if (model.Photo != null)
                 {
-                    foreach(IFormFile photo in model.Photos)
-                    {
-                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
-
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
                 Talent newTalent = new Talent()
                 {
