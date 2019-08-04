@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ namespace WeCode.Models
     public class TalentRepository : ITalentRepository
     {
         private readonly AppDBContext _context;
+        private readonly ILogger<TalentRepository> _logger;
 
-        public TalentRepository(AppDBContext context)
+        public TalentRepository(AppDBContext context,
+            ILogger<TalentRepository> logger)
         {
             this._context = context;
+            this._logger = logger;
         }
         public Talent Add(Talent talent)
         {
@@ -33,6 +37,12 @@ namespace WeCode.Models
 
         public Talent GetTalent(int id)
         {
+            _logger.LogTrace("Trace Log");
+            _logger.LogDebug("Debug Log");
+            _logger.LogInformation("Information Log");
+            _logger.LogWarning("Warning Log");
+            _logger.LogError("Error Log");
+            _logger.LogCritical("Critical Log");
             return _context.Talents.Find(id);
         }
 
