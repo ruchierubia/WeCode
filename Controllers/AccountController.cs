@@ -83,9 +83,10 @@ namespace WeCode.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (!String.IsNullOrEmpty(returnUrl))
+                    if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))// check if return url is local to prevent open redirect attack
                     {
-                        return Redirect(returnUrl);
+                        //return LocalRedirect(returnUrl); prevent opon redurect vulnerability
+                        return Redirect(returnUrl); // donot throw exception in open redirect attack
                     }
                     else
                     {
