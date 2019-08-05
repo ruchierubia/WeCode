@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +47,16 @@ namespace WeCode
             //});
 
             //services.AddMvcCore(); not complete, only core services
-            services.AddMvc().AddXmlSerializerFormatters();// to return xml
+            services.AddMvc(option => 
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
+                option.Filters.Add(new AuthorizeFilter(policy)); // apply authorize attribute globally just put [allowanonymous] to needed enty action
+
+            }).AddXmlSerializerFormatters();// to return xml
+
+
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
         }
 

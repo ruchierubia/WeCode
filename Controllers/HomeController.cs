@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ITalentRepository _talentRepository;
@@ -26,11 +28,13 @@ namespace WeCode.Controllers
             _hostingEnvironment = hostingEnvironment;
             _logger = logger;
         }
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var model = _talentRepository.GetTalentList();
             return View(model);
         }
+        [AllowAnonymous]
         public ViewResult Details(int? id)
         {
             //throw new Exception("Error in Details View");
