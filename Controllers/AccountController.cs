@@ -21,6 +21,13 @@ namespace WeCode.Controllers
             this._userManager = userManager;
             this._signInManager = signInManager;
         }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index","home");
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
