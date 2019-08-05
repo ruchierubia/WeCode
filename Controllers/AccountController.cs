@@ -74,7 +74,7 @@ namespace WeCode.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,14 @@ namespace WeCode.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "home");
+                    if (!String.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "home");
+                    }
                 }
                     ModelState.AddModelError("", "Invalid Login Attempt");
 
