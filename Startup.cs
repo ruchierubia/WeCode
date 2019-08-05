@@ -28,8 +28,22 @@ namespace WeCode
         {
             services.AddDbContextPool<AppDBContext>(
                 options => options.UseSqlServer(_config.GetConnectionString("WeCodeDBConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDBContext>();
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+            })
+            .AddEntityFrameworkStores<AppDBContext>();
+
+            //services.Configure<IdentityOptions>(options => same as above no make prevent duplicate
+            //{
+            //    options.Password.RequiredLength = 10;
+            //    options.Password.RequiredUniqueChars = 3;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //});
+
             //services.AddMvcCore(); not complete, only core services
             services.AddMvc().AddXmlSerializerFormatters();// to return xml
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
