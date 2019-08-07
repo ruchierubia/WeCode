@@ -34,8 +34,8 @@ namespace WeCode
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                options.Password.RequiredLength = 10;
-                options.Password.RequiredUniqueChars = 3;
+                //options.Password.RequiredLength = 10; // restore default config so we can put shorter user passwords
+                //options.Password.RequiredUniqueChars = 3;
             })
             .AddEntityFrameworkStores<AppDBContext>();
 

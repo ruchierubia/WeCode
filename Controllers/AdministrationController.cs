@@ -25,6 +25,14 @@ namespace WeCode.Controllers
         }
 
         [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = _userManager.Users;
+            return View(users);
+
+        }
+
+        [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
