@@ -10,7 +10,7 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
-    [Authorize(Roles = "Admin,User")] // either role can access
+    [Authorize(Roles = "Admin")] // admin only can access
     //[Authorize(Roles = "Admin")] // can only access if both member of admin and user roles
     //[Authorize(Roles = "User")]
     public class AdministrationController : Controller
@@ -25,14 +25,12 @@ namespace WeCode.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin")] //Admin only
         public IActionResult CreateRole()
         {
             return View();
 
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")] //Admin only
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -59,7 +57,6 @@ namespace WeCode.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous] // anyone can access
         public IActionResult ListRoles()
         {
             var roles = _roleManager.Roles;
