@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
+    [Authorize(Roles = "Admin,User")] // either role can access
+    //[Authorize(Roles = "Admin")] // can only access if both member of admin and user roles
+    //[Authorize(Roles = "User")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -21,12 +25,14 @@ namespace WeCode.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Admin")] //Admin only
         public IActionResult CreateRole()
         {
             return View();
 
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")] //Admin only
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -53,13 +59,14 @@ namespace WeCode.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous] // anyone can access
         public IActionResult ListRoles()
         {
             var roles = _roleManager.Roles;
             return View(roles);
         }
 
-        [HttpGet]
+        [HttpGet] // since no action authorization both it will follow the contoller authorization attribute
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -85,6 +92,7 @@ namespace WeCode.Controllers
         }
 
         [HttpPost]
+        // since no action authorization both it will follow the contoller authorization attribute
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
