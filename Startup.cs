@@ -58,15 +58,15 @@ namespace WeCode
 
             }).AddXmlSerializerFormatters();// to return xml
 
-            services.AddAuthentication( options => {
-                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            }).AddFacebook(options => {
+            //services.AddAuthentication( options => { // diable social authentication
+            //    options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+            //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //}).AddFacebook(options => {
 
-                options.AppId = "";
-                options.AppSecret = "";
-            }).AddCookie();
+            //    options.AppId = "";
+            //    options.AppSecret = "";
+            //}).AddCookie();
 
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
