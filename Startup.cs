@@ -71,8 +71,10 @@ namespace WeCode
             {
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             //app.UseMvcWithDefaultRoute();
