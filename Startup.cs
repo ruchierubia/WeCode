@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +57,16 @@ namespace WeCode
                 option.Filters.Add(new AuthorizeFilter(policy)); // apply authorize attribute globally just put [allowanonymous] to needed enty action
 
             }).AddXmlSerializerFormatters();// to return xml
+
+            services.AddAuthentication( options => {
+                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddFacebook(options => {
+
+                options.AppId = "";
+                options.AppSecret = "";
+            }).AddCookie();
 
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest

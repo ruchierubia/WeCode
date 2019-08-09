@@ -1,0 +1,9 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Sign In";
+}
+
+@foreach (var item in Model)
+{
+    <a class="btn btn-primary" asp-controller="Auth" asp-action="SignIn" asp-route-provider="@item">@item</a>
+}

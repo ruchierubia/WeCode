@@ -77,6 +77,18 @@
                             <a asp-action="login" asp-controller="account" class="nav-link">Login</a>
                         </li>
                     }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Auth" asp-action="SignOut">Sign Out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Auth" asp-action="Login">Third Party Login</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </nav>
