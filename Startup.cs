@@ -71,8 +71,10 @@ namespace WeCode
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("DeleteRolePolicy",
-                policy => policy.RequireClaim("Delete Role")
-                                .RequireClaim("Create Role"));
+                policy => policy.RequireClaim("Delete Role"));
+                // role based is just a claim with role type
+                options.AddPolicy("AdminRolePolicy",
+                policy => policy.RequireRole("Admin"));
             });
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest

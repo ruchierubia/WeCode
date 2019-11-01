@@ -13,7 +13,7 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
-    [Authorize(Roles = "Admin")] // admin only can access
+    [Authorize(Policy = "AdminRolePolicy")] // admin only can access
     //[Authorize(Roles = "Admin")] // can only access if both member of admin and user roles
     //[Authorize(Roles = "User")]
     public class AdministrationController : Controller
@@ -345,6 +345,8 @@ namespace WeCode.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {
+            ViewBag.userId = userId;
+            ViewBag.userId = userId;
             ViewBag.userId = userId;
             var user = await _userManager.FindByIdAsync(userId);
             if(user == null)
