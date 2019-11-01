@@ -73,6 +73,11 @@ namespace WeCode
                 options.AddPolicy("DeleteRolePolicy",
                 policy => policy.RequireClaim("Delete Role"));
                 // role based is just a claim with role type
+
+                options.AddPolicy("EditRolePolicy",
+                policy => policy.RequireClaim("Edit Role"));
+
+
                 options.AddPolicy("AdminRolePolicy",
                 policy => policy.RequireRole("Admin"));
             });

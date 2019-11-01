@@ -219,6 +219,7 @@ namespace WeCode.Controllers
         }
 
         [HttpGet] // since no action authorization both it will follow the contoller authorization attribute
+        [Authorize(Policy ="EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -244,6 +245,7 @@ namespace WeCode.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "EditRolePolicy")]
         // since no action authorization both it will follow the contoller authorization attribute
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
