@@ -68,6 +68,12 @@ namespace WeCode
             //    options.AppSecret = "";
             //}).AddCookie();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy",
+                policy => policy.RequireClaim("Delete Role")
+                                .RequireClaim("Create Role"));
+            });
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
         }

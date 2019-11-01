@@ -439,6 +439,7 @@ namespace WeCode.Controllers
         }
 
         [HttpPost]
+        [Authorize (Policy ="DeleteRolePolicy")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
