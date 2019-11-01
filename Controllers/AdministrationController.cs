@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +19,14 @@ namespace WeCode.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<AdministrationController> _logger;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager,
+            ILogger<AdministrationController> logger)
         {
             this._roleManager = roleManager;
             this._userManager = userManager;
+            this._logger = logger;
         }
 
         [HttpGet]
@@ -299,19 +304,36 @@ namespace WeCode.Controllers
             }
             else
             {
-                var result = await _roleManager.DeleteAsync(role);
-
-                if (result.Succeeded)
+                try
                 {
-                    return RedirectToAction("ListRoles");
-                }
+                    var result = await _roleManager.DeleteAsync(role);
 
-                foreach (var error in result.Errors)
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ListRoles");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View("ListRoles");
+                }
+                // If the exception is DbUpdateException, we know we are not able to
+                // delete the role as there are users in the role being deleted
+                catch (DbUpdateException ex)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    //Log the exception to a file. We discussed logging to a file
+                    // using Nlog in Part 63 of ASP.NET Core tutorial
+                    _logger.LogError($"Exception Occured : {ex}");
+                    // Pass the ErrorTitle and ErrorMessage that you want to show to
+                    // the user using ViewBag. The Error view retrieves this data
+                    // from the ViewBag and displays to the user.
+                    ViewBag.ErrorTitle = $"{role.Name} role is in use";
+                    ViewBag.ErrorMessage = $"{role.Name} role cannot be deleted as there are users in this role. If you want to delete this role, please remove the users from the role and then try to delete";
+                    return View("Error");
                 }
-
-                return View("ListRoles");
             }
         }
     }
