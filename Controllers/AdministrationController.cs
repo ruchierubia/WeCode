@@ -259,6 +259,7 @@ namespace WeCode.Controllers
 
             return RedirectToAction("EditRole", new { Id = roleId });
         }
+        [HttpPost]
         public async Task<IActionResult> DeleteUser (string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -283,6 +284,34 @@ namespace WeCode.Controllers
                 }
 
                 return View("ListUsers");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with id = {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await _roleManager.DeleteAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListRoles");
             }
         }
     }
