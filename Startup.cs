@@ -44,6 +44,9 @@ namespace WeCode
             .AddEntityFrameworkStores<AppDBContext>()
             .AddDefaultTokenProviders();
 
+            services.Configure<DataProtectionTokenProviderOptions>( o =>
+                o.TokenLifespan = TimeSpan.FromHours(5));
+
             //services.Configure<IdentityOptions>(options => same as above no make prevent duplicate
             //{
             //    options.Password.RequiredLength = 10;
