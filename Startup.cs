@@ -40,12 +40,18 @@ namespace WeCode
                 //options.Password.RequiredLength = 10; // restore default config so we can put shorter user passwords
                 //options.Password.RequiredUniqueChars = 3;
                 options.SignIn.RequireConfirmedEmail = true;
+                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
             })
             .AddEntityFrameworkStores<AppDBContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddTokenProvider<CustomEmailConfirmationTokenProvider
+            <ApplicationUser>>("CustomEmailConfirmation");
 
             services.Configure<DataProtectionTokenProviderOptions>( o =>
                 o.TokenLifespan = TimeSpan.FromHours(5));
+
+            services.Configure<CustomEmailConfirmationTokenProviderOptions>( o => 
+                o.TokenLifespan = TimeSpan.FromDays(3));
 
             //services.Configure<IdentityOptions>(options => same as above no make prevent duplicate
             //{
