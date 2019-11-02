@@ -41,7 +41,8 @@ namespace WeCode
                 //options.Password.RequiredUniqueChars = 3;
                 options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<AppDBContext>();
+            .AddEntityFrameworkStores<AppDBContext>()
+            .AddDefaultTokenProviders();
 
             //services.Configure<IdentityOptions>(options => same as above no make prevent duplicate
             //{
