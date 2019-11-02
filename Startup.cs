@@ -39,6 +39,7 @@ namespace WeCode
             {
                 //options.Password.RequiredLength = 10; // restore default config so we can put shorter user passwords
                 //options.Password.RequiredUniqueChars = 3;
+                options.SignIn.RequireConfirmedEmail = true;
             })
             .AddEntityFrameworkStores<AppDBContext>();
 
