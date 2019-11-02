@@ -77,14 +77,17 @@ namespace WeCode
             {
                 options.AddPolicy("DeleteRolePolicy",
                 policy => policy.RequireClaim("Delete Role"));
-                // role based is just a claim with role type
+            // role based is just a claim with role type
 
-                options.AddPolicy("EditRolePolicy",
-                policy => policy.RequireClaim("Edit Role", "true"));
+            options.AddPolicy("EditRolePolicy",
+            policy => policy.RequireAssertion(context =>
+                context.User.IsInRole("Admin") &&
+                context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
+                context.User.IsInRole("Super Admin")
+            ));
 
-
-                options.AddPolicy("AdminRolePolicy",
-                policy => policy.RequireRole("Admin"));
+            options.AddPolicy("AdminRolePolicy",
+            policy => policy.RequireRole("Admin"));
             });
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest

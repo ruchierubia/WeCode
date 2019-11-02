@@ -13,7 +13,7 @@ using WeCode.ViewModels;
 
 namespace WeCode.Controllers
 {
-    [Authorize(Policy = "AdminRolePolicy")] // admin only can access
+    //[Authorize(Policy = "AdminRolePolicy")] // admin only can access
     //[Authorize(Roles = "Admin")] // can only access if both member of admin and user roles
     //[Authorize(Roles = "User")]
     public class AdministrationController : Controller
