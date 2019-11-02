@@ -64,6 +64,10 @@ namespace WeCode
                 {
                     options.ClientId = "963035732755-ce7eo7hrhntlc89fe1ol0rbn9trt5p4l.apps.googleusercontent.com";
                     options.ClientSecret = "AY5O43rDYba4EXnhUej7Eckv";
+                })
+                .AddFacebook( options => {
+                    options.ClientId = "2537689009586381";
+                    options.ClientSecret = "d821cf4196a3b6f8aa72fb010e98c308";
                 });
 
             services.ConfigureApplicationCookie(options =>
