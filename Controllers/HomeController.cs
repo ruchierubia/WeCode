@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WeCode.Models;
+using WeCode.Security;
 using WeCode.ViewModels;
 
 namespace WeCode.Controllers
@@ -19,23 +21,35 @@ namespace WeCode.Controllers
         private readonly ITalentRepository _talentRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ILogger _logger;
+        private readonly IDataProtector _protector;
 
         public HomeController(ITalentRepository talentRepository, 
                               IHostingEnvironment hostingEnvironment,
-                              ILogger<HomeController> logger)
+                              ILogger<HomeController> logger,
+                              IDataProtectionProvider dataProtectionProvider,
+                              DataProtectionPurposeStrings dataProtectionPurposeStrings)
         {
             _talentRepository = talentRepository;
             _hostingEnvironment = hostingEnvironment;
             _logger = logger;
+            // Pass the purpose string as a parameter
+            this._protector = dataProtectionProvider.CreateProtector(
+                dataProtectionPurposeStrings.EmployeeIdRouteValue);
         }
         [AllowAnonymous]
         public ViewResult Index()
         {
-            var model = _talentRepository.GetTalentList();
+            var model = _talentRepository.GetTalentList()
+                .Select( t =>
+                {
+                    t.EncryptedId = _protector.Protect(t.Id.ToString());
+                    return t;
+                }
+                );
             return View(model);
         }
         [AllowAnonymous]
-        public ViewResult Details(int? id)
+        public ViewResult Details(string id)
         {
             //throw new Exception("Error in Details View");
             _logger.LogTrace("Trace Log");
@@ -44,11 +58,12 @@ namespace WeCode.Controllers
             _logger.LogWarning("Warning Log");
             _logger.LogError("Error Log");
             _logger.LogCritical("Critical Log");
-            Talent talent = _talentRepository.GetTalent(id.Value);
+            int employeeId = Convert.ToInt32(_protector.Unprotect(id));
+            Talent talent = _talentRepository.GetTalent(employeeId);
             if(talent == null)
             {
                 Response.StatusCode = 404;
-                return View("TalentNotFound", id.Value);
+                return View("TalentNotFound", employeeId);
             }
 
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
