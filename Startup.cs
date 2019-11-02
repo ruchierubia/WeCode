@@ -80,7 +80,7 @@ namespace WeCode
                 // role based is just a claim with role type
 
                 options.AddPolicy("EditRolePolicy",
-                policy => policy.RequireClaim("Edit Role"));
+                policy => policy.RequireClaim("Edit Role", "true"));
 
 
                 options.AddPolicy("AdminRolePolicy",
