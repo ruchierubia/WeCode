@@ -58,6 +58,11 @@ namespace WeCode
 
             }).AddXmlSerializerFormatters();// to return xml
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
+            });
+
             //services.AddAuthentication( options => { // diable social authentication
             //    options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
             //    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
