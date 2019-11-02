@@ -59,6 +59,13 @@ namespace WeCode
 
             }).AddXmlSerializerFormatters();// to return xml
 
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "963035732755-ce7eo7hrhntlc89fe1ol0rbn9trt5p4l.apps.googleusercontent.com";
+                    options.ClientSecret = "AY5O43rDYba4EXnhUej7Eckv";
+                });
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied");
