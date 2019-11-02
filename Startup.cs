@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WeCode.Models;
+using WeCode.Security;
 
 namespace WeCode
 {
@@ -77,20 +78,17 @@ namespace WeCode
             {
                 options.AddPolicy("DeleteRolePolicy",
                 policy => policy.RequireClaim("Delete Role"));
-            // role based is just a claim with role type
+                // role based is just a claim with role type
 
-            options.AddPolicy("EditRolePolicy",
-            policy => policy.RequireAssertion(context =>
-                context.User.IsInRole("Admin") &&
-                context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
-                context.User.IsInRole("Super Admin")
-            ));
+                options.AddPolicy("EditRolePolicy",
+                policy => policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
 
             options.AddPolicy("AdminRolePolicy",
             policy => policy.RequireRole("Admin"));
             });
 
             services.AddScoped<ITalentRepository, TalentRepository>();// switch implementations perfect to unit testing , dependency injection at its finest
+            services.AddSingleton<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
